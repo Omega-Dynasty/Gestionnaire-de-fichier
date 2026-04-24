@@ -20,12 +20,22 @@ void create_file(Directory* dir, const char* name, const char* content) {
 }
 
 void list_content(Directory* dir) {
+    // RESOLUTION BUG : On ajoute une sécurité si le pointeur est NULL
+    if (dir == NULL) {
+        printf("Erreur : Impossible de lister un répertoire inexistant.\n");
+        return;
+    }
+
     printf("\n--- Dossier actuel : %s ---\n", dir->name);
+    
+    // Lister les sous-dossiers
     Directory* d = dir->subdirs;
     while (d) {
         printf(" [DIR]  %s\n", d->name);
         d = d->next;
     }
+    
+    // Lister les fichiers
     File* f = dir->files;
     while (f) {
         printf(" [FILE] %s\n", f->name);
