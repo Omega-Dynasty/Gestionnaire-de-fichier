@@ -55,3 +55,15 @@ Directory* change_directory(Directory* current, const char* name) {
     printf("Erreur : répertoire introuvable.\n");
     return current;
 }
+
+void read_file(Directory* dir, const char* name) {
+    File* f = dir->files;
+    while (f) {
+        if (strcmp(f->name, name) == 0) {
+            printf("\n--- Contenu de : %s ---\n%s\n------------------\n", f->name, f->content);
+            return;
+        }
+        f = f->next;
+    }
+    printf("Erreur : Le fichier '%s' n'existe pas dans ce repertoire.\n", name);
+}

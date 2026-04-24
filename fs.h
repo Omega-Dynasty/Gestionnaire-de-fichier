@@ -24,10 +24,12 @@ typedef struct Directory {
     File* files;
 } Directory;
 
+void read_file(Directory* dir, const char* name);
+
 // Prototypes
 Directory* create_directory(const char* name, Directory* parent);
 void create_file(Directory* dir, const char* name, const char* content);
 void list_content(Directory* dir);
-Directory* change_directory(Directory* current, const char* name);
+Directory* change_directory(Directory* current, const char* name);x
 
 #endif
