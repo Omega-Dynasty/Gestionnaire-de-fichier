@@ -1,5 +1,6 @@
 #include "fs.h"
 
+// Créer un répertoire
 Directory* create_directory(const char* name, Directory* parent) {
     Directory* new_dir = (Directory*)malloc(sizeof(Directory));
     if (!new_dir) return NULL;
@@ -12,6 +13,7 @@ Directory* create_directory(const char* name, Directory* parent) {
     return new_dir;
 }
 
+// Créer un fichier
 void create_file(Directory* dir, const char* name, const char* content) {
     File* new_file = (File*)malloc(sizeof(File));
     if (!new_file) return;
@@ -22,6 +24,7 @@ void create_file(Directory* dir, const char* name, const char* content) {
     printf("Fichier '%s' cree.\n", name);
 }
 
+// Lister le contenu
 void list_content(Directory* dir) {
     if (!dir) return;
     printf("\n--- Contenu de %s ---\n", dir->name);
@@ -37,6 +40,7 @@ void list_content(Directory* dir) {
     }
 }
 
+// Naviguer entre répertoires
 Directory* change_directory(Directory* current, const char* name) {
     if (strcmp(name, "..") == 0) {
         return (current->parent) ? current->parent : current;
@@ -50,6 +54,7 @@ Directory* change_directory(Directory* current, const char* name) {
     return current;
 }
 
+// Lire un fichier
 void read_file(Directory* dir, const char* name) {
     File* f = dir->files;
     while (f) {
@@ -62,6 +67,7 @@ void read_file(Directory* dir, const char* name) {
     printf("Erreur : Fichier introuvable.\n");
 }
 
+// Modifier un fichier
 void write_to_file(Directory* dir, const char* name, const char* new_content) {
     File* f = dir->files;
     while (f) {
@@ -74,13 +80,14 @@ void write_to_file(Directory* dir, const char* name, const char* new_content) {
     }
 }
 
+// Supprimer un fichier et libérer la mémoire
 void delete_file(Directory* dir, const char* name) {
     File *curr = dir->files, *prev = NULL;
     while (curr) {
         if (strcmp(curr->name, name) == 0) {
             if (prev) prev->next = curr->next;
             else dir->files = curr->next;
-            free(curr);
+            free(curr); 
             printf("Fichier '%s' supprime.\n", name);
             return;
         }
@@ -90,9 +97,9 @@ void delete_file(Directory* dir, const char* name) {
     printf("Erreur : Fichier introuvable.\n");
 }
 
+// Suivi de l'espace disque
 void check_space(Directory* root) {
     int used = 0;
-    // Calcul simple sur le dossier actuel pour l'exemple
     File* f = root->files;
     while(f) {
         used += strlen(f->content);
