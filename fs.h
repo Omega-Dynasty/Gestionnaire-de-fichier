@@ -25,6 +25,7 @@ typedef struct Directory {
 } Directory;
 
 void read_file(Directory* dir, const char* name);
+void delete_file(Directory* dir, const char* name);
 
 // Prototypes
 Directory* create_directory(const char* name, Directory* parent);

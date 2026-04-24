@@ -67,3 +67,27 @@ void read_file(Directory* dir, const char* name) {
     }
     printf("Erreur : Le fichier '%s' n'existe pas dans ce repertoire.\n", name);
 }
+
+void delete_file(Directory* dir, const char* name) {
+    File* current = dir->files;
+    File* prev = NULL;
+
+    while (current != NULL) {
+        if (strcmp(current->name, name) == 0) {
+            // On recoud la liste chaînée
+            if (prev == NULL) {
+                dir->files = current->next;
+            } else {
+                prev->next = current->next;
+            }
+            
+            // On libère la mémoire
+            free(current);
+            printf("Fichier '%s' supprime avec succes.\n", name);
+            return;
+        }
+        prev = current;
+        current = current->next;
+    }
+    printf("Erreur : Impossible de supprimer '%s' (introuvable).\n", name);
+}

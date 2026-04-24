@@ -2,20 +2,16 @@
 
 int main() {
     Directory* root = create_directory("root", NULL);
-    Directory* current = root;
+    
+    create_file(root, "test.txt", "A supprimer");
+    create_file(root, "garde.txt", "A garder");
+    
+    list_content(root);
 
-    // Création de base
-    create_directory("Documents", current);
-    create_directory("Images", current);
-    create_file(current, "info.txt", "Systeme initialise.");
+    printf("\nSuppression de 'test.txt'...\n");
+    delete_file(root, "test.txt");
 
-    list_content(current);
-
-    // Test de navigation
-    printf("\nEntree dans 'Documents'...\n");
-    current = change_directory(current, "Documents");
-    create_file(current, "secret.txt", "Ceci est dans Documents");
-    list_content(current);
+    list_content(root);
 
     return 0;
 }
